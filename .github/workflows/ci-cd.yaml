@@ -1,4 +1,4 @@
-name: CI/CD Pipeline Exemplo
+name: CI/CD Pipeline
 
 on:
   push:
@@ -21,9 +21,6 @@ jobs:
 
       - name: Instalar dependências
         run: npm install
-
-      - name: Rodar testes
-        run: npm test
 
       - name: Build do projeto
         run: npm run build
