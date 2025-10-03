@@ -1,0 +1,62 @@
+# .github/workflows/ci-cd.yml
+name: CI/CD Pipeline Exemplo
+
+on:
+  push:
+    branches: [ "main" ]   # Executa quando houver push na branch main
+  pull_request:
+    branches: [ "main" ]   # Executa também em PRs
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Pega o código do repositório
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      # 2. Configura versão do Node.js (pode trocar para outra linguagem)
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+
+      # 3. Instala dependências
+      - name: Instalar dependências
+        run: npm install
+
+      # 4. Executa os testes
+      - name: Rodar testes
+        run: npm test
+
+      # 5. Build do projeto
+      - name: Build do projeto
+        run: npm run build
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build   # Só roda se o build passar
+    if: github.ref == 'refs/heads/main'   # Só faz deploy se for na main
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+
+      - name: Instalar dependências
+        run: npm install
+
+      - name: Build do projeto
+        run: npm run build
+
+      # Exemplo de deploy no GitHub Pages
+      - name: Deploy no GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
