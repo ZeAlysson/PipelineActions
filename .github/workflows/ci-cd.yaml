@@ -4,7 +4,6 @@ on:
   pull_request:
     branches:
       - main
-      - develop
 
   push:
     branches:
@@ -12,8 +11,8 @@ on:
 
 permissions:
   contents: read
-  id-token: write
   pages: write
+  id-token: write
 
 jobs:
   build:
@@ -40,21 +39,15 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout do código
+      - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Configurar GitHub Pages
+      - name: Setup Pages
         uses: actions/configure-pages@v5
-
-      - name: Upload do artefato
-        uses: actions/upload-pages-artifact@v1
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
           path: '.'
-
-      - name: Deploy para GitHub Pages
+      - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v1
-
-      
+        uses: actions/deploy-pages@v4 
