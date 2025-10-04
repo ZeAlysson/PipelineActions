@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Demonstração de CI/CD Pipeline com GitHub Actions">
-    <meta name="author" content="José Alisson">
-    <title>CI/CD Pipeline - GitHub Actions Demo</title>
+    <meta name="description" content="Curso DevOps ZTM - Deploy Automatizado com CI/CD">
+    <meta name="author" content="José Alisson, Álefe Moreira, Cândido Bisneto, Pedro Lucas, Weverton Vitor">
+    <title>DevOps ZTM - Deploy Automatizado com Sucesso! 🚀</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -15,64 +16,152 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #7e22ce 100%);
             min-height: 100vh;
             padding: 20px;
             color: #333;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Animação de fundo com partículas */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            animation: float 15s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px);
+                opacity: 0;
+            }
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
+            position: relative;
+            z-index: 1;
         }
 
+        /* Header com animação espetacular */
         header {
             text-align: center;
-            padding: 40px 20px;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            margin-bottom: 30px;
-            animation: slideDown 0.6s ease-out;
+            padding: 60px 30px;
+            background: linear-gradient(135deg, rgba(30, 60, 114, 0.95) 0%, rgba(126, 34, 206, 0.95) 100%);
+            border-radius: 25px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            margin-bottom: 40px;
+            animation: slideDown 0.8s ease-out;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
         }
 
         @keyframes slideDown {
             from {
                 opacity: 0;
-                transform: translateY(-30px);
+                transform: translateY(-50px) scale(0.9);
             }
             to {
                 opacity: 1;
-                transform: translateY(0);
+                transform: translateY(0) scale(1);
             }
         }
 
         h1 {
-            font-size: 2.5rem;
-            color: #667eea;
-            margin-bottom: 10px;
+            font-size: 3.5rem;
+            color: #fff;
+            margin-bottom: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 15px;
+            gap: 20px;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .emoji-rocket {
+            font-size: 4rem;
+            animation: rocket 2s ease-in-out infinite;
+        }
+
+        @keyframes rocket {
+            0%, 100% {
+                transform: translateY(0) rotate(-10deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(10deg);
+            }
         }
 
         .subtitle {
-            font-size: 1.2rem;
-            color: #666;
-            margin-bottom: 20px;
+            font-size: 1.4rem;
+            color: #e0e7ff;
+            margin-bottom: 25px;
+            font-weight: 300;
+            position: relative;
+            z-index: 1;
         }
 
-        .badge {
-            display: inline-block;
-            background: #4ade80;
+        .success-banner {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
             color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 0.9rem;
+            padding: 20px 40px;
+            border-radius: 50px;
+            font-size: 1.5rem;
             font-weight: bold;
-            margin: 5px;
-            animation: pulse 2s infinite;
+            display: inline-block;
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4);
+            animation: pulse 2s infinite, glow 2s infinite;
+            position: relative;
+            z-index: 1;
         }
 
         @keyframes pulse {
@@ -84,26 +173,104 @@
             }
         }
 
-        .content-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
+        @keyframes glow {
+            0%, 100% {
+                box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4);
+            }
+            50% {
+                box-shadow: 0 10px 50px rgba(16, 185, 129, 0.8);
+            }
         }
 
-        .card {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            animation: fadeIn 0.6s ease-out;
+        .badge-container {
+            margin-top: 25px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
         }
 
-        @keyframes fadeIn {
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            animation: fadeInUp 0.6s ease-out backwards;
+        }
+
+        .badge:nth-child(1) { animation-delay: 0.2s; }
+        .badge:nth-child(2) { animation-delay: 0.4s; }
+        .badge:nth-child(3) { animation-delay: 0.6s; }
+
+        @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: scale(0.95);
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Seção de Autores */
+        .authors-section {
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 25px;
+            padding: 50px 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 1s ease-out;
+        }
+
+        .authors-section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #1e3c72;
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .authors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .author-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            animation: scaleIn 0.6s ease-out backwards;
+        }
+
+        .author-card:nth-child(1) { animation-delay: 0.1s; }
+        .author-card:nth-child(2) { animation-delay: 0.2s; }
+        .author-card:nth-child(3) { animation-delay: 0.3s; }
+        .author-card:nth-child(4) { animation-delay: 0.4s; }
+        .author-card:nth-child(5) { animation-delay: 0.5s; }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
             }
             to {
                 opacity: 1;
@@ -111,28 +278,91 @@
             }
         }
 
+        .author-card:hover {
+            transform: translateY(-10px) rotate(2deg);
+            box-shadow: 0 20px 50px rgba(102, 126, 234, 0.5);
+        }
+
+        .author-avatar {
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            border: 4px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .author-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .author-role {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        /* Content Grid */
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s ease;
+            animation: fadeIn 0.8s ease-out;
+            border-top: 5px solid;
+        }
+
+        .card:nth-child(1) { border-top-color: #667eea; }
+        .card:nth-child(2) { border-top-color: #10b981; }
+        .card:nth-child(3) { border-top-color: #f59e0b; }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            transform: translateY(-10px);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
         }
 
         .card h2 {
-            color: #667eea;
-            margin-bottom: 15px;
-            font-size: 1.5rem;
+            color: #1e3c72;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
 
         .card-icon {
-            font-size: 2rem;
+            font-size: 2.5rem;
         }
 
         .card p {
-            line-height: 1.6;
-            color: #555;
-            margin-bottom: 10px;
+            line-height: 1.8;
+            color: #4b5563;
+            margin-bottom: 15px;
+            font-size: 1.05rem;
         }
 
         .card ul {
@@ -141,311 +371,496 @@
         }
 
         .card ul li {
-            padding: 8px 0;
-            color: #555;
+            padding: 12px 0;
+            color: #4b5563;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.05rem;
+        }
+
+        .check-icon {
+            color: #10b981;
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+
+        /* Seção DevOps */
+        .devops-section {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(240, 240, 255, 0.98) 100%);
+            border-radius: 25px;
+            padding: 50px 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .devops-section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #1e3c72;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .devops-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .devops-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .devops-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .devops-card h3 {
+            color: #667eea;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
-        .check-icon {
-            color: #4ade80;
-            font-weight: bold;
-            font-size: 1.2rem;
+        .devops-card p {
+            color: #4b5563;
+            line-height: 1.7;
         }
 
-        .pipeline-steps {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            margin-bottom: 30px;
-        }
-
-        .pipeline-steps h2 {
-            color: #667eea;
-            margin-bottom: 20px;
-            font-size: 1.8rem;
-            text-align: center;
-        }
-
-        .step {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            padding: 20px;
-            margin: 15px 0;
-            border-radius: 10px;
-            border-left: 5px solid #667eea;
-            transition: all 0.3s ease;
-        }
-
-        .step:hover {
-            transform: translateX(10px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .step-number {
-            background: #667eea;
+        /* Repository Section */
+        .repo-section {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
             color: white;
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            display: inline-flex;
+            border-radius: 25px;
+            padding: 60px 40px;
+            text-align: center;
+            margin-bottom: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            animation: fadeIn 1s ease-out;
+        }
+
+        .repo-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
-            margin-right: 15px;
+            gap: 15px;
         }
 
-        .step h3 {
-            display: inline;
-            color: #333;
+        .repo-section p {
             font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.95;
         }
 
-        .step p {
-            margin-top: 10px;
-            padding-left: 50px;
-            color: #555;
+        .repo-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: white;
+            color: #1e3c72;
+            padding: 18px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
         }
 
+        .repo-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 50px rgba(255, 255, 255, 0.3);
+            background: #10b981;
+            color: white;
+        }
+
+        .repo-button i {
+            font-size: 1.5rem;
+        }
+
+        /* Footer */
         footer {
             text-align: center;
-            padding: 30px;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 25px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
         }
 
         footer h3 {
-            color: #667eea;
-            margin-bottom: 10px;
+            color: #1e3c72;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
         }
 
         footer p {
-            color: #666;
+            color: #4b5563;
             font-size: 1.1rem;
-        }
-
-        .author {
-            font-weight: bold;
-            color: #764ba2;
-            font-size: 1.3rem;
+            line-height: 1.8;
         }
 
         .tech-stack {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 20px;
+            gap: 15px;
+            margin-top: 30px;
         }
 
         .tech-badge {
-            background: #667eea;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 10px 20px;
-            border-radius: 25px;
-            font-size: 0.9rem;
-            font-weight: 500;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+            transition: all 0.3s ease;
         }
 
+        .tech-badge:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
             h1 {
-                font-size: 1.8rem;
+                font-size: 2rem;
                 flex-direction: column;
             }
 
-            .content-grid {
+            .content-grid,
+            .authors-grid,
+            .devops-content {
                 grid-template-columns: 1fr;
             }
 
-            .step p {
-                padding-left: 0;
+            .card, .authors-section, .devops-section, .repo-section {
+                padding: 30px 20px;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Partículas animadas -->
+    <div class="particles" id="particles"></div>
+
     <div class="container">
         <header>
             <h1>
-                <span>🚀</span>
-                DEPLOY AUTOMATIZADO COM SUCESSO
+                <span class="emoji-rocket">🚀</span>
+                DevOps ZTM Course
             </h1>
-            <p class="subtitle">Automação de Deploy e Integração Contínua</p>
-            <div>
-                <span class="badge">✅ Build Success</span>
-                <span class="badge">✅ Deployed</span>
+            <p class="subtitle">Continuous Integration & Continuous Delivery na Prática</p>
+            <div class="success-banner">
+                ✅ DEPLOY AUTOMATIZADO COM SUCESSO!
+            </div>
+            <div class="badge-container">
+                <div class="badge">
+                    <i class="fas fa-check-circle"></i> Build Passed
+                </div>
+                <div class="badge">
+                    <i class="fas fa-vial"></i> All Tests Green
+                </div>
+                <div class="badge">
+                    <i class="fas fa-rocket"></i> Live on GitHub Pages
+                </div>
             </div>
         </header>
+
+        <!-- Seção de Autores -->
+        <div class="authors-section">
+            <h2>
+                <i class="fas fa-users"></i>
+                Autores do Curso
+            </h2>
+            <div class="authors-grid">
+                <div class="author-card">
+                    <div class="author-avatar">👨‍💻</div>
+                    <div class="author-name">José Alisson</div>
+                    <div class="author-role">DevOps Engineer & Instructor</div>
+                </div>
+                <div class="author-card">
+                    <div class="author-avatar">🚀</div>
+                    <div class="author-name">Álefe Moreira</div>
+                    <div class="author-role">CI/CD Specialist</div>
+                </div>
+                <div class="author-card">
+                    <div class="author-avatar">⚙️</div>
+                    <div class="author-name">Cândido Bisneto</div>
+                    <div class="author-role">Cloud Architect</div>
+                </div>
+                <div class="author-card">
+                    <div class="author-avatar">🔧</div>
+                    <div class="author-name">Pedro Lucas</div>
+                    <div class="author-role">Automation Engineer</div>
+                </div>
+                <div class="author-card">
+                    <div class="author-avatar">💡</div>
+                    <div class="author-name">Weverton Vitor</div>
+                    <div class="author-role">Infrastructure Specialist</div>
+                </div>
+            </div>
+        </div>
 
         <div class="content-grid">
             <div class="card">
                 <h2>
                     <span class="card-icon">🎯</span>
-                    O que é GitHub Actions?
+                    Pipeline CI/CD
                 </h2>
                 <p>
-                    GitHub Actions é uma plataforma de CI/CD que permite automatizar, 
-                    personalizar e executar fluxos de trabalho de desenvolvimento de software 
-                    diretamente no seu repositório GitHub.
+                    Este projeto demonstra um pipeline completo de CI/CD usando GitHub Actions,
+                    com deploy automatizado para GitHub Pages.
                 </p>
-                <p>
-                    Com ele, você pode construir, testar e implantar seu código 
-                    automaticamente sempre que houver mudanças no repositório.
-                </p>
+                <ul>
+                    <li><span class="check-icon">✓</span> Build Automatizado</li>
+                    <li><span class="check-icon">✓</span> Testes Automáticos</li>
+                    <li><span class="check-icon">✓</span> Deploy Contínuo</li>
+                    <li><span class="check-icon">✓</span> Zero Downtime</li>
+                </ul>
             </div>
 
             <div class="card">
                 <h2>
                     <span class="card-icon">💡</span>
-                    Principais Benefícios
+                    Módulo 6
                 </h2>
+                <p>
+                    GitHub Actions e Automação de Workflows são os tópicos centrais
+                    deste módulo do curso DevOps ZTM.
+                </p>
                 <ul>
-                    <li><span class="check-icon">✓</span> Integração e Entrega Contínua</li>
-                    <li><span class="check-icon">✓</span> Automação de Tarefas Repetitivas</li>
-                    <li><span class="check-icon">✓</span> Feedback Rápido para o Time</li>
-                    <li><span class="check-icon">✓</span> Redução de Erros Manuais</li>
-                    <li><span class="check-icon">✓</span> Deploy Automático</li>
-                    <li><span class="check-icon">✓</span> Colaboração Facilitada</li>
+                    <li><span class="check-icon">✓</span> Workflows YAML</li>
+                    <li><span class="check-icon">✓</span> Actions Marketplace</li>
+                    <li><span class="check-icon">✓</span> Secrets & Variables</li>
+                    <li><span class="check-icon">✓</span> Matrix Builds</li>
                 </ul>
             </div>
 
             <div class="card">
                 <h2>
                     <span class="card-icon">🛠️</span>
-                    Casos de Uso
+                    Resultados
                 </h2>
-                <ul>
-                    <li><span class="check-icon">✓</span> Testes Unitários Automáticos</li>
-                    <li><span class="check-icon">✓</span> Testes de Integração</li>
-                    <li><span class="check-icon">✓</span> Build e Compilação</li>
-                    <li><span class="check-icon">✓</span> Deploy Automático</li>
-                    <li><span class="check-icon">✓</span> Análise de Código</li>
-                    <li><span class="check-icon">✓</span> Geração de Documentação</li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="pipeline-steps">
-            <h2>📋 Etapas do Pipeline</h2>
-            
-            <div class="step">
-                <span class="step-number">1</span>
-                <h3>Checkout do Código</h3>
-                <p>O GitHub Actions faz o checkout do código mais recente do repositório para o ambiente de execução.</p>
-            </div>
-
-            <div class="step">
-                <span class="step-number">2</span>
-                <h3>Configuração do Ambiente</h3>
-                <p>Configura o Node.js versão 18 e prepara o ambiente com todas as dependências necessárias.</p>
-            </div>
-
-            <div class="step">
-                <span class="step-number">3</span>
-                <h3>Instalação de Dependências</h3>
-                <p>Executa npm install para instalar todos os pacotes e bibliotecas necessários para o projeto.</p>
-            </div>
-
-            <div class="step">
-                <span class="step-number">4</span>
-                <h3>Execução de Testes</h3>
-                <p>Roda todos os testes unitários e de integração para garantir a qualidade do código.</p>
-            </div>
-
-            <div class="step">
-                <span class="step-number">5</span>
-                <h3>Build do Projeto</h3>
-                <p>Compila e gera os arquivos finais otimizados para produção na pasta dist/.</p>
-            </div>
-
-            <div class="step">
-                <span class="step-number">6</span>
-                <h3>Deploy Automático</h3>
-                <p>Faz o deploy automático para GitHub Pages, disponibilizando a aplicação online instantaneamente.</p>
-            </div>
-        </div>
-
-        <div class="content-grid">
-            <div class="card">
-                <h2>
-                    <span class="card-icon">⚡</span>
-                    Gatilhos do Pipeline
-                </h2>
-                <ul>
-                    <li><span class="check-icon">✓</span> Pull Request para main</li>
-                    <li><span class="check-icon">✓</span> Push na branch main</li>
-                    <li><span class="check-icon">✓</span> Execução Manual (workflow_dispatch)</li>
-                    <li><span class="check-icon">✓</span> Agendamento (cron)</li>
-                </ul>
-            </div>
-
-            <div class="card">
-                <h2>
-                    <span class="card-icon">📦</span>
-                    Estrutura do Projeto
-                </h2>
-                <p style="font-family: monospace; background: #f5f5f5; padding: 15px; border-radius: 5px; font-size: 0.9rem;">
-                    .<br>
-                    ├── .github/<br>
-                    │   └── workflows/<br>
-                    │       └── ci-cd.yaml<br>
-                    ├── src/<br>
-                    ├── tests/<br>
-                    ├── dist/<br>
-                    ├── index.html<br>
-                    └── package.json
+                <p>
+                    Pipeline executado com sucesso, validando todos os conceitos
+                    aprendidos no curso.
                 </p>
+                <ul>
+                    <li><span class="check-icon">✓</span> 100% Coverage</li>
+                    <li><span class="check-icon">✓</span> Sem Erros</li>
+                    <li><span class="check-icon">✓</span> Performance Otimizada</li>
+                    <li><span class="check-icon">✓</span> Deploy Bem-sucedido</li>
+                </ul>
             </div>
         </div>
 
-        <div class="pipeline-steps">
-            <h2>🔧 Tecnologias Utilizadas</h2>
+        <!-- Seção DevOps -->
+        <div class="devops-section">
+            <h2>
+                <i class="fas fa-infinity"></i>
+                O que é DevOps?
+            </h2>
+            <p style="text-align: center; color: #4b5563; font-size: 1.1rem; max-width: 900px; margin: 0 auto 30px;">
+                DevOps é uma cultura e conjunto de práticas que une desenvolvimento (Dev) e operações (Ops)
+                para acelerar a entrega de software com qualidade, automatizando processos e promovendo colaboração.
+            </p>
+            <div class="devops-content">
+                <div class="devops-card">
+                    <h3><i class="fas fa-code-branch"></i> Integração Contínua (CI)</h3>
+                    <p>
+                        Automatiza a integração de código de múltiplos desenvolvedores em um repositório compartilhado.
+                        Cada integração é verificada por builds e testes automatizados para detectar erros rapidamente.
+                    </p>
+                </div>
+                <div class="devops-card">
+                    <h3><i class="fas fa-truck"></i> Entrega Contínua (CD)</h3>
+                    <p>
+                        Estende o CI automatizando a liberação de código validado para produção.
+                        Garante que o software pode ser implantado de forma confiável a qualquer momento.
+                    </p>
+                </div>
+                <div class="devops-card">
+                    <h3><i class="fas fa-robot"></i> Automação</h3>
+                    <p>
+                        Elimina tarefas manuais repetitivas através de scripts e ferramentas.
+                        Reduz erros humanos e aumenta a eficiência do time.
+                    </p>
+                </div>
+                <div class="devops-card">
+                    <h3><i class="fas fa-chart-line"></i> Monitoramento</h3>
+                    <p>
+                        Observabilidade contínua de aplicações e infraestrutura.
+                        Permite identificar e resolver problemas proativamente.
+                    </p>
+                </div>
+                <div class="devops-card">
+                    <h3><i class="fas fa-users-cog"></i> Colaboração</h3>
+                    <p>
+                        Quebra silos entre equipes de desenvolvimento e operações.
+                        Promove responsabilidade compartilhada e feedback rápido.
+                    </p>
+                </div>
+                <div class="devops-card">
+                    <h3><i class="fas fa-shield-alt"></i> Segurança (DevSecOps)</h3>
+                    <p>
+                        Integra práticas de segurança desde o início do desenvolvimento.
+                        Automatiza testes de segurança e compliance no pipeline.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Seção GitHub Actions -->
+        <div class="devops-section">
+            <h2>
+                <i class="fab fa-github"></i>
+                GitHub Actions
+            </h2>
+            <p style="text-align: center; color: #4b5563; font-size: 1.1rem; max-width: 900px; margin: 0 auto 30px;">
+                Plataforma de automação nativa do GitHub para CI/CD e workflows personalizados.
+                Permite automatizar todo o ciclo de vida do software diretamente no repositório.
+            </p>
+            <div class="devops-content">
+                <div class="devops-card">
+                    <h3><i class="fas fa-file-code"></i> Workflows</h3>
+                    <p>
+                        Processos automatizados configurados em arquivos YAML no repositório.
+                        São acionados por eventos como push, pull requests, ou agendamentos.
+                    </p>
+                </div>
+                <div class="devops-card">
+                    <h3><i class="fas fa-puzzle-piece"></i> Actions</h3>
+                    <p>
+                        Unidades reutilizáveis de código que executam tarefas específicas.
+                        Marketplace com milhares de actions prontas da comunidade.
+                    </p>
+                </div>
+                <div class="devops-card">
+                    <h3><i class="fas fa-play-circle"></i> Runners</h3>
+                    <p>
+                        Máquinas virtuais que executam os workflows (Linux, Windows, macOS).
+                        Podem ser hospedadas pelo GitHub ou self-hosted.
+                    </p>
+                </div>
+                <div class="devops-card">
+                    <h3><i class="fas fa-calendar-alt"></i> Eventos</h3>
+                    <p>
+                        Gatilhos que iniciam workflows: push, pull_request, schedule, workflow_dispatch.
+                        Permite automação baseada em qualquer evento do GitHub.
+                    </p>
+                </div>
+                <div class="devops-card">
+                    <h3><i class="fas fa-key"></i> Secrets</h3>
+                    <p>
+                        Armazena informações sensíveis de forma segura (tokens, senhas, chaves API).
+                        Criptografados e acessíveis apenas durante a execução dos workflows.
+                    </p>
+                </div>
+                <div class="devops-card">
+                    <h3><i class="fas fa-layer-group"></i> Matrix Strategy</h3>
+                    <p>
+                        Executa jobs em múltiplas configurações simultaneamente.
+                        Testa diferentes versões de linguagens, sistemas operacionais, etc.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Seção do Repositório -->
+        <div class="repo-section">
+            <h2>
+                <i class="fab fa-github"></i>
+                Repositório do Curso
+            </h2>
+            <p>
+                Acesse o repositório completo do curso DevOps ZTM no GitHub.<br>
+                Todo o material, exemplos práticos e código-fonte estão disponíveis!
+            </p>
+            <a href="https://github.com/alefemoreira/DevOpsZTM" target="_blank" class="repo-button">
+                <i class="fab fa-github"></i>
+                Acessar Repositório DevOpsZTM
+            </a>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <h3>🎓 Curso DevOps ZTM - Zero To Mastery</h3>
+            <p>
+                Um curso completo sobre DevOps, CI/CD, GitHub Actions, Docker, Kubernetes e muito mais!
+            </p>
             <div class="tech-stack">
                 <span class="tech-badge">GitHub Actions</span>
-                <span class="tech-badge">Node.js 18</span>
-                <span class="tech-badge">Jest</span>
-                <span class="tech-badge">GitHub Pages</span>
-                <span class="tech-badge">YAML</span>
                 <span class="tech-badge">CI/CD</span>
+                <span class="tech-badge">Docker</span>
+                <span class="tech-badge">Kubernetes</span>
+                <span class="tech-badge">AWS</span>
+                <span class="tech-badge">Terraform</span>
+                <span class="tech-badge">Ansible</span>
+                <span class="tech-badge">Monitoring</span>
             </div>
-        </div>
-
-        <footer>
-            <h3>👨‍💻 Apresentado por</h3>
-            <p class="author">José Alisson</p>
-            <p>Módulo 6 - GitHub Actions e CI/CD na Prática</p>
-            <p style="margin-top: 20px; color: #999; font-size: 0.9rem;">
-                © 2025 - Projeto de Demonstração CI/CD Pipeline
+            <p style="margin-top: 30px; color: #999; font-size: 0.95rem;">
+                © 2025 - DevOps ZTM Course | Deploy Automatizado com Sucesso! 🚀
             </p>
         </footer>
     </div>
 
     <script>
-        // Adiciona animação de entrada para os cards
+        // Criar partículas animadas
+        function createParticles() {
+            const particles = document.getElementById('particles');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                particles.appendChild(particle);
+            }
+        }
+
+        createParticles();
+
+        // Animação de entrada para cards
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry, index) => {
+            entries.forEach((entry) => {
                 if (entry.isIntersecting) {
-                    setTimeout(() => {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                    }, index * 100);
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
                 }
             });
-        });
+        }, { threshold: 0.1 });
 
-        document.querySelectorAll('.card, .step').forEach((el) => {
+        document.querySelectorAll('.card, .author-card, .devops-card').forEach((el) => {
             el.style.opacity = '0';
-            el.style.transform = 'translateY(20px)';
-            el.style.transition = 'all 0.5s ease';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease';
             observer.observe(el);
         });
 
-        // Log de boas-vindas
-        console.log('%c🚀 CI/CD Pipeline Demo', 'color: #667eea; font-size: 20px; font-weight: bold;');
-        console.log('%cProjeto de demonstração do GitHub Actions', 'color: #764ba2; font-size: 14px;');
-        console.log('%cPor: José Alisson', 'color: #4ade80; font-size: 12px;');
+        // Logs no console
+        console.log('%c🚀 DevOps ZTM Course - Deploy Automatizado!', 'color: #667eea; font-size: 24px; font-weight: bold;');
+        console.log('%c✅ Pipeline executado com sucesso!', 'color: #10b981; font-size: 16px;');
+        console.log('%cPor: José Alisson, Álefe Moreira, Cândido Bisneto, Pedro Lucas, Weverton Vitor', 'color: #764ba2; font-size: 12px;');
+        console.log('%cRepositório: https://github.com/alefemoreira/DevOpsZTM', 'color: #2a5298; font-size: 12px;');
     </script>
 </body>
 </html>
