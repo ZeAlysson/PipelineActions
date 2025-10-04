@@ -37,4 +37,3 @@ jobs:
 
       - name: Build do projeto
         run: npm run build
-
